@@ -15,6 +15,12 @@ return new class extends Migration
     {
         Schema::create('member_data_personal', function (Blueprint $table) {
             $table->id();
+            $table->string('usia');
+            $table->string('jenis_kelamin');
+            $table->string('lokasi_geografis');
+            $table->string('pendidikan');
+            $table->string('penghasilan');
+            $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
     }
