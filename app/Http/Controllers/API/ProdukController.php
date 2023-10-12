@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Models\MemberDataPersonal;
+use App\Models\Produk;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class MemberDataPersonalController extends Controller
+class ProdukController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,14 +16,13 @@ class MemberDataPersonalController extends Controller
     public function index()
     {
         //
-        // return 'data personal';
-        $data = MemberDataPersonal::all();
+        $data = Produk::all();
 
         return response()->json([
-            'status' => 200,
-            'status_message' => 'success',
-            'text_message' => 'Data Member Berhasil Ditampilkan',
-            'data' => $data,
+          'status' => 200,
+          'status_message' => 'success',
+          'text_message' => 'Data Member Berhasil Ditampilkan',
+          'data' => $data,
         ], 200);
     }
 
@@ -36,8 +35,8 @@ class MemberDataPersonalController extends Controller
     public function store(Request $request)
     {
         //
-        $data = MemberDataPersonal::create([
-          'member_id' => $request->member_id,
+        $data = Produk::create([
+          'nama' => $request->nama,
         ]);
 
         return response()->json([
@@ -57,13 +56,6 @@ class MemberDataPersonalController extends Controller
     public function show($id)
     {
         //
-
-        return response()->json([
-            'status' => 200,
-            'status_message' => 'success',
-            'text_message' => 'Data Member Berhasil Ditampilkan',
-            // 'data' => $data,
-        ], 200);
     }
 
     /**
@@ -76,13 +68,6 @@ class MemberDataPersonalController extends Controller
     public function update(Request $request, $id)
     {
         //
-
-        return response()->json([
-            'status' => 200,
-            'status_message' => 'success',
-            'text_message' => 'Data Member Berhasil Ditampilkan',
-            // 'data' => $data,
-        ], 200);
     }
 
     /**
@@ -94,12 +79,5 @@ class MemberDataPersonalController extends Controller
     public function destroy($id)
     {
         //
-
-        return response()->json([
-            'status' => 200,
-            'status_message' => 'success',
-            'text_message' => 'Data Member Berhasil Ditampilkan',
-            // 'data' => $data,
-        ], 200);
     }
 }

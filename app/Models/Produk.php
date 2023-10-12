@@ -6,21 +6,21 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class MemberDataPersonal extends Model
+class Produk extends Model
 {
     use HasFactory;
     use SoftDeletes;
 
     protected $primaryKey = 'id';
-    protected $table = 'member_data_personal';
+    protected $table = 'produk';
     protected $dates = ['deleted_at'];
 
     protected $fillable = [
-        'member_id',
-        'usia',
-        'jenis_kelamin',
-        'lokasi_geografis',
-        'pendidikan',
-        'penghasilan',
+      'nama',
+      'deskripsi',
+      'harga',
+      'kategori',
+      'foto',
+      'stok'
     ];
 }

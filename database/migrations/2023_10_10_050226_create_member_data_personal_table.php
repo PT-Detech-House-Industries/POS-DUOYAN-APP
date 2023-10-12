@@ -14,14 +14,20 @@ return new class extends Migration
     public function up()
     {
         Schema::create('member_data_personal', function (Blueprint $table) {
-            $table->id();
-            $table->string('usia');
-            $table->string('jenis_kelamin');
-            $table->string('lokasi_geografis');
-            $table->string('pendidikan');
-            $table->string('penghasilan');
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('member_id')->nullable();
+            $table->string('usia')->nullable();
+            $table->string('jenis_kelamin')->nullable();
+            $table->string('lokasi_geografis')->nullable();
+            $table->string('pendidikan')->nullable();
+            $table->string('penghasilan')->nullable();
             $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
+
+            $table->foreign('member_id')
+            ->references('id')->on('member')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
         });
     }
 

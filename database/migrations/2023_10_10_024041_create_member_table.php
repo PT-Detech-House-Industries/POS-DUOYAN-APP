@@ -14,9 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('member', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama');
-            $table->string('nomor_whatsapp');
+            $table->bigIncrements('id');
+            $table->string('nama')->nullable();
+            $table->string('nomor_whatsapp')->nullable();
             $table->timestamp('deleted_at')->nullable();
             // $table->integer('pembelian')->default(0);
             $table->timestamps();
