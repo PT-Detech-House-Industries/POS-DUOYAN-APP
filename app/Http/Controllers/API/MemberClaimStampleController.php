@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Models\MemberPurchasing;
+use App\Models\MemberClaimStample;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class MemberPurchasingController extends Controller
+class MemberClaimStampleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +16,8 @@ class MemberPurchasingController extends Controller
     public function index()
     {
         //
-        // return 'member purchasing';
-        $data = MemberPurchasing::all();
+        // return 'percobaan';
+        $data = MemberClaimStample::all();
 
         return response()->json([
           'status' => 200,
@@ -36,9 +36,8 @@ class MemberPurchasingController extends Controller
     public function store(Request $request)
     {
         //
-        $data = MemberPurchasing::create([
-          'member_id' => $request->member_id,
-          'product_name' => $request->product_name,
+        $data = MemberClaimStample::create([
+          'nama' => $request->nama,
         ]);
 
         return response()->json([

@@ -6,24 +6,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class MemberPurchasing extends Model
+class MemberStample extends Model
 {
     use HasFactory;
     use SoftDeletes;
 
     protected $primaryKey = 'id';
-    protected $table = 'member_purchasing';
+    protected $table = 'member_stample'; // Nama tabel yang sesuai
     protected $dates = ['deleted_at'];
 
     protected $fillable = [
-        'member_id',
-        'product_name',
-        'total_price',
-        'purchase_date',
+      'name', 
+      'age', 
+      'address',
     ];
-
-    public function member()
-    {
-        return $this->belongsTo(Member::class, 'member_id');
-    }
 }
