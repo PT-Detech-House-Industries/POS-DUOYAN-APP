@@ -14,12 +14,18 @@ return new class extends Migration
     public function up()
     {
         Schema::create('member', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('nama')->nullable();
-            $table->string('nomor_whatsapp')->nullable();
+            $table->bigIncrements('id'); // Automatic ID column
+            $table->unsignedBigInteger('user_id')->nullable(); // User ID associated with the member
+            $table->string('name')->nullable(); // Name of the member
+            $table->string('whatsapp_number')->nullable(); // WhatsApp number of the member
             $table->timestamp('deleted_at')->nullable();
-            // $table->integer('pembelian')->default(0);
+            // $table->integer('purchases')->default(0); // Number of purchases (if applicable)
             $table->timestamps();
+
+            $table->foreign('user_id')
+            ->references('id')->on('users')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
         });
     }
 

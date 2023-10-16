@@ -16,11 +16,12 @@ return new class extends Migration
         Schema::create('member_data_personal', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('member_id')->nullable();
-            $table->string('usia')->nullable();
-            $table->string('jenis_kelamin')->nullable();
-            $table->string('lokasi_geografis')->nullable();
-            $table->string('pendidikan')->nullable();
-            $table->string('penghasilan')->nullable();
+            $table->date('birthday')->nullable();
+            $table->string('age')->nullable();
+            $table->string('gender')->nullable(); // jenis kelamin
+            $table->string('geographic_location')->nullable(); // lokasi geografi
+            $table->string('education')->nullable(); // pendidikan 
+            $table->string('income')->nullable(); // penghasilan
             $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
 

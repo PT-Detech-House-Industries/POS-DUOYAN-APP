@@ -16,7 +16,7 @@ return new class extends Migration
       Schema::create('member_purchasing', function (Blueprint $table) {
         $table->bigIncrements('id'); // Kolom ID otomatis
         $table->unsignedBigInteger('member_id'); // Kolom untuk mengaitkan dengan anggota (member) tertentu
-        $table->string('product_name')->nullable(); // Nama produk yang dibeli
+        $table->unsignedBigInteger('product_id'); 
         $table->decimal('total_price', 10, 2)->nullable(); // Harga total dengan 10 digit total dan 2 digit desimal
         $table->date('purchase_date')->nullable(); // Tanggal pembelian
         $table->timestamp('deleted_at')->nullable();
@@ -25,6 +25,11 @@ return new class extends Migration
         // Definisikan indeks dan kunci asing jika diperlukan
         $table->foreign('member_id')
           ->references('id')->on('member')
+          ->onUpdate('cascade')
+          ->onDelete('cascade');
+
+        $table->foreign('product_id')
+          ->references('id')->on('product')
           ->onUpdate('cascade')
           ->onDelete('cascade');
       });

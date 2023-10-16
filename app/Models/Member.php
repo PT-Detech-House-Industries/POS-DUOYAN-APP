@@ -16,9 +16,13 @@ class Member extends Model
     protected $dates = ['deleted_at'];
 
     protected $fillable = [
-        'nama',
-        // 'nomor_membership',
-        'nomor_whatsapp',
-        // nomor_whatsapp
+      'user_id',
+      'name',
+      'whatsapp_number',
     ];
+
+    public function user()
+    {
+      return $this->belongsTo(User::class, 'user_id');
+    }
 }

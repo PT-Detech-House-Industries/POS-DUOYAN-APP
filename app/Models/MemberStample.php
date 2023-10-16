@@ -16,8 +16,20 @@ class MemberStample extends Model
     protected $dates = ['deleted_at'];
 
     protected $fillable = [
-      'name', 
-      'age', 
-      'address',
+      'member_purchasing_id',
+      'quantity_purchased',
+      'purchase_date',
+      'purchase_card_number',
+      'stample_card',
     ];
+
+    public function memberPurchasing()
+    {
+      return $this->belongsTo(MemberPurchasing::class, 'member_purchasing_id');
+    }
+
+    public function claimStample()
+    {
+      return $this->hasMany(MemberClaimStample::class, 'member_stample_id');
+    }
 }

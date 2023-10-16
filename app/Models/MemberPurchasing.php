@@ -17,7 +17,7 @@ class MemberPurchasing extends Model
 
     protected $fillable = [
         'member_id',
-        'product_name',
+        'product_id',
         'total_price',
         'purchase_date',
     ];

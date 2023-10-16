@@ -14,12 +14,19 @@ return new class extends Migration
     public function up()
     {
         Schema::create('member_stample', function (Blueprint $table) {
-          $table->bigIncrements('id'); // Kolom ID otomatis
-          $table->string('name')->nullable(); // Tambahkan kolom 'name' dengan tipe data string
-          $table->integer('age')->nullable(); // Tambahkan kolom 'age' dengan tipe data integer
-          $table->text('address')->nullable(); // Tambahkan kolom 'address' dengan tipe data text
+          $table->bigIncrements('id'); // Automatic ID column
+          $table->unsignedBigInteger('member_purchasing_id'); // Member's purchase ID
+          $table->integer('quantity_purchased')->nullable(); // Quantity purchased
+          $table->date('purchase_date')->nullable(); // Purchase date
+          $table->integer('purchase_card_number')->nullable(); // Purchase card number
+          $table->string('stample_card')->nullable(); // Stample card (if applicable)
           $table->timestamp('deleted_at')->nullable();
           $table->timestamps();
+
+          $table->foreign('member_purchasing_id')
+            ->references('id')->on('member_purchasing')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
         });
     }
 
