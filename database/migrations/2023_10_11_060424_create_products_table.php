@@ -18,9 +18,9 @@ return new class extends Migration
           $table->string('name')->nullable();
           $table->text('description')->nullable();
           $table->decimal('price', 10, 2)->nullable();
-          $table->string('category')->nullable();
-          $table->string('photo')->nullable();
-          $table->integer('stock')->nullable();
+          // $table->string('category')->nullable();
+          // $table->string('photo')->nullable();
+          // $table->integer('stock')->nullable();
           $table->timestamp('deleted_at')->nullable();
           $table->timestamps();
         });

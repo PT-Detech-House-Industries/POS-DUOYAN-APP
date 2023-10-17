@@ -17,13 +17,28 @@ class MemberPurchasingController extends Controller
     {
         //
         // return 'member purchasing';
-        $data = MemberPurchasing::all();
+        // $data = MemberPurchasing::all();
+        $memberPurchases = MemberPurchasing::all();
+
+        $customData = $memberPurchases->map(function ($purchase) {
+          return [
+            'id' => $purchase->id,
+            'member_id' => $purchase->member->name,
+            'product_id' => $purchase->product->name,
+            'invoice' => $purchase->invoice,
+            'quantity_purchased' => $purchase->quantity_purchased,
+            'total_price' => $purchase->total_price,
+            'purchase_date' => $purchase->purchase_date,
+            'status' => $purchase->status,
+            // Tambahkan field tambahan sesuai kebutuhan Anda
+          ];
+        });
 
         return response()->json([
           'status' => 200,
           'status_message' => 'success',
           'text_message' => 'Data Member Berhasil Ditampilkan',
-          'data' => $data,
+          'data' => $customData,
         ], 200);
     }
 
@@ -36,16 +51,24 @@ class MemberPurchasingController extends Controller
     public function store(Request $request)
     {
         //
-        $data = MemberPurchasing::create([
-          'member_id' => $request->member_id,
-          'product_name' => $request->product_name,
+        $data = $request->validate([
+          'member_id' => 'required|integer',
+          'product_id' => 'required|integer',
+          'invoice' => 'required|string',
+          // 'quantity_purchased' => 'integer|nullable',
+          // 'total_price' => 'numeric|nullable',
+          // 'purchase_date' => 'date|nullable',
+          // 'status' => 'in:paid,unpaid',
+          // Anda dapat menambahkan validasi tambahan sesuai kebutuhan Anda
         ]);
+  
+        $memberPurchase = MemberPurchasing::create($data);
 
         return response()->json([
           'status' => 201,
           'status_message' => 'success',
           'text_message' => 'Data berhasil disimpan',
-          'data' => $data,
+          'data' => $memberPurchase ,
         ], 201);
     }
 

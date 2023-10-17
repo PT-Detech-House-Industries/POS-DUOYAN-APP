@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\MemberController;
 use App\Http\Controllers\API\MemberDataPersonalController;
-use App\Http\Controllers\API\ProdukController;
+use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\MemberDataAwardController;
 use App\Http\Controllers\API\MemberNotedAwardController;
 use App\Http\Controllers\API\MemberPurchasingController;
@@ -52,10 +52,6 @@ Route::middleware('auth:sanctum')->group(function () {
   Route::put('/member-personal/{id}/update', [MemberDataPersonalController::class, 'update']);
   Route::delete('/member-personal/{id}/delete', [MemberDataPersonalController::class, 'destroy']);
 
-  // Produk
-  Route::get('/produk', [ProdukController::class, 'index']);
-  Route::post('/produk/store', [ProdukController::class, 'store']);
-
   // Award
   Route::get('/member-award', [MemberDataAwardController::class, 'index']);
   Route::post('/member-award/store', [MemberDataAwardController::class, 'store']);
@@ -63,11 +59,6 @@ Route::middleware('auth:sanctum')->group(function () {
   // Noted Award
   Route::get('/member-noted-award', [MemberNotedAwardController::class, 'index']);
   Route::post('/member-noted-award/store', [MemberNotedAwardController::class, 'store']);
-
-  // Purchasing
-  // Route::get('/member-purchasing', function() { return 'untuk ringkasan'; });
-  Route::get('/member-purchasing', [MemberPurchasingController::class, 'index']);
-  Route::post('/member-purchasing/store', [MemberPurchasingController::class, 'store']);
 
   // Stample
   Route::get('/member-stample', [MemberStampleController::class, 'index']);
@@ -77,3 +68,13 @@ Route::middleware('auth:sanctum')->group(function () {
   Route::get('/member-stample-claim', [MemberClaimStampleController::class, 'index']);
   Route::post('/member-stample-claim/store', [MemberClaimStampleController::class, 'store']);
 });
+
+// Purchasing
+// Route::get('/member-purchasing', function() { return 'untuk ringkasan'; });
+Route::get('/member-purchasing', [MemberPurchasingController::class, 'index']);
+Route::post('/member-purchasing/store', [MemberPurchasingController::class, 'store']);
+
+// Produk
+Route::get('/product', [ProductController::class, 'index']);
+Route::post('/product/store', [ProductController::class, 'store']);
+Route::get('/product/{id}/show', [ProductController::class, 'show']);

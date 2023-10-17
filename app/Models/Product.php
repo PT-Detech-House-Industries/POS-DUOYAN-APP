@@ -19,9 +19,13 @@ class Product extends Model
       'name',
       'description',
       'price',
-      'category',
-      'photo',
-      'stock',
+      // 'category',
+      // 'photo',
+      // 'stock',
     ];
+
+    protected $casts = [
+      'price' => 'decimal:2',
+  ];
 
 }
