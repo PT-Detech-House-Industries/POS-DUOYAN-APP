@@ -59,14 +59,6 @@ Route::middleware('auth:sanctum')->group(function () {
   // Noted Award
   Route::get('/member-noted-award', [MemberNotedAwardController::class, 'index']);
   Route::post('/member-noted-award/store', [MemberNotedAwardController::class, 'store']);
-
-  // Stample
-  Route::get('/member-stample', [MemberStampleController::class, 'index']);
-  Route::post('/member-stample/store', [MemberStampleController::class, 'store']);
-
-  // Stample Claim
-  Route::get('/member-stample-claim', [MemberClaimStampleController::class, 'index']);
-  Route::post('/member-stample-claim/store', [MemberClaimStampleController::class, 'store']);
 });
 
 // Purchasing
@@ -74,7 +66,15 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::get('/member-purchasing', [MemberPurchasingController::class, 'index']);
 Route::post('/member-purchasing/store', [MemberPurchasingController::class, 'store']);
 
-// Produk
+// Product
 Route::get('/product', [ProductController::class, 'index']);
 Route::post('/product/store', [ProductController::class, 'store']);
 Route::get('/product/{id}/show', [ProductController::class, 'show']);
+
+// Stample
+Route::get('/member-stample', [MemberStampleController::class, 'index']);
+Route::post('/member-stample/store', [MemberStampleController::class, 'store']);
+
+// Stample Claim
+Route::get('/member-stample-claim', [MemberClaimStampleController::class, 'index']);
+Route::post('/member-stample-claim/store', [MemberClaimStampleController::class, 'store']);

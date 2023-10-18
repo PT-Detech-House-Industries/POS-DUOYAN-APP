@@ -16,8 +16,20 @@ class MemberClaimStample extends Model
     protected $dates = ['deleted_at'];
 
     protected $fillable = [
-      'claim_type', 
-      'amount', 
+      'member_id',
+      'product_id',
       'claim_date',
+      'status_claim',
+      'periode_claim',
     ];
+
+    public function member()
+    {
+      return $this->belongsTo(Member::class, 'member_id');
+    }
+
+    public function product()
+    {
+      return $this->belongsTo(Product::class, 'product_id');
+    }
 }
