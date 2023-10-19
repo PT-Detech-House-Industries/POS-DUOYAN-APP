@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Models\Product;
 use App\Models\MemberStample;
 use App\Models\MemberClaimStample;
 use App\Models\MemberPurchasing;
+use App\Models\MemberPurchasingDetail;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -27,7 +29,6 @@ class MemberPurchasingController extends Controller
           return [
             'id' => $purchase->id,
             'member_id' => $purchase->member->name,
-            'product_id' => $purchase->product->name,
             'invoice' => $purchase->invoice,
             'quantity_purchased' => $purchase->quantity_purchased,
             'total_price' => $purchase->total_price,
@@ -64,8 +65,25 @@ class MemberPurchasingController extends Controller
           // 'status' => 'in:paid,unpaid',
           // Anda dapat menambahkan validasi tambahan sesuai kebutuhan Anda
         ]);
+
+        // Ambil harga produk dari database
+        $hargaProduk = Product::where('id', $data['product_id'])->value('price');
+
+        // Hitung total harga
+        $totalHarga = $hargaProduk * $data['quantity_purchased'];
+
+        // Tambahkan total harga ke dalam data
+        $data['total_price'] = $totalHarga;
   
         $memberPurchase = MemberPurchasing::create($data);
+
+        MemberPurchasingDetail::create([
+          'member_purchasing_id' => $memberPurchase->id,
+          'product_id' => $data['product_id'],
+          'quantity' => $data['quantity_purchased'],
+          'price' => $hargaProduk,
+        ]);
+        
         // Menggunakan loop untuk membuat catatan MemberStample berdasarkan quantity_purchased
         for ($i = 0; $i < $data['quantity_purchased']; $i++) {
           MemberStample::create([
@@ -86,22 +104,41 @@ class MemberPurchasingController extends Controller
         if ($stampleCount >= 10) {
           $claimCount = floor($stampleCount / 10); // Menghitung berapa banyak klaim yang harus dibuat
           for ($i = 0; $i < $claimCount; $i++) {
-            $memberClaimStample = MemberClaimStample::create([
-              'member_id' => $data['member_id'],
-              // 'product_id' => 1,
-              'claim_date' => '2023-01-02',
-              // 'status_claim' => 'belum',
-              'periode_claim' => '1',
-            ]);
+            // if(!empty($data['member_id'])) {
+
+            $firstRow = MemberClaimStample::first();
+
+            if ($firstRow === null) {
+                // Tabel kosong
+                $memberClaimStample = MemberClaimStample::create([
+                  'member_id' => $data['member_id'],
+                  'status_claim' => 'belum',
+                  'periode_claim' => '1', // ditambah satu jika belum
+                ]);
+                //
+            } else {
+                //
+                $latestClaim = MemberClaimStample::where('member_id', $data['member_id'])
+                  ->latest('created_at') // Mengurutkan berdasarkan tanggal pembuatan terbaru
+                  ->first();
+
+                $addPeriode = $latestClaim->periode_claim + 1;
+                // Tabel tidak kosong
+                $memberClaimStample = MemberClaimStample::create([
+                  'member_id' => $data['member_id'],
+                  'status_claim' => 'belum',
+                  'periode_claim' => $addPeriode, // ditambah satu jika belum
+                ]);
+            }
 
             // Mendapatkan ID dari MemberClaimStample yang baru saja dibuat
             $claimStampleId = $memberClaimStample->id;
 
             // Mengupdate MemberStample yang sesuai dengan ID MemberClaimStample
             MemberStample::where('member_id', $data['member_id'])
-            ->whereNull('member_claim_stample_id') // Hanya yang belum terhubung ke klaim
-            ->take(10) // Ambil 10 MemberStample
-            ->update(['member_claim_stample_id' => $claimStampleId]);
+              ->whereNull('member_claim_stample_id') // Hanya yang belum terhubung ke klaim
+              ->take(10) // Ambil 10 MemberStample
+              ->update(['member_claim_stample_id' => $claimStampleId]);
           }
         }
 

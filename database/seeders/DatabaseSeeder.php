@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
           MemberTableSeeder::class,
           MemberDataPersonalSeeder::class,
           ProductSeeder::class,
-          MemberPurchasingSeeder::class,
+          // MemberPurchasingSeeder::class,
           // MemberStampleSeeder::class,
         ]);
     }

@@ -17,12 +17,12 @@ class MemberPurchasing extends Model
 
     protected $fillable = [
       'member_id',
-      'product_id',
       'invoice',
       'quantity_purchased',
       'total_price',
       'purchase_date',
       'status',
+      'purchase_type'
     ];
 
     public function member()
