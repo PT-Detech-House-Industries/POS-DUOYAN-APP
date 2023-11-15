@@ -18,9 +18,17 @@ class MemberTableSeeder extends Seeder
     {
         //
         Member::create([
-          'user_id' => 1,
-          'name' => 'John Doe',
+          'user_id' => 2,
+          'name' => 'edward',
+          'number_member' => '324',
           'whatsapp_number' => '1234567890',
+        ]);
+
+        Member::create([
+          'user_id' => 3,
+          'name' => 'Meli',
+          'number_member' => '324',
+          'whatsapp_number' => '08123456789',
         ]);
     }
 }

@@ -11,6 +11,8 @@ use App\Http\Controllers\API\MemberPurchasingController;
 use App\Http\Controllers\API\MemberStampleController;
 use App\Http\Controllers\API\MemberClaimStampleController;
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\MemberAwardController;
+use App\Http\Controllers\API\MemberAwardRecordController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -37,13 +39,6 @@ Route::post('login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->group(function () {
   //logout
   Route::get('/logout', [AuthController::class, 'logout']);
-  
-  // Member
-  Route::get('/member', [MemberController::class, 'index']);
-  Route::post('/member/store', [MemberController::class, 'store']);
-  Route::get('/member/{id}/show', [MemberController::class, 'show']);
-  Route::put('/member/{id}/update', [MemberController::class, 'update']);
-  Route::delete('/member/{id}/delete', [MemberController::class, 'destroy']);
   
   // Personal
   Route::get('/member-personal', [MemberDataPersonalController::class, 'index']);
@@ -78,3 +73,27 @@ Route::post('/member-stample/store', [MemberStampleController::class, 'store']);
 // Stample Claim
 Route::get('/member-stample-claim', [MemberClaimStampleController::class, 'index']);
 Route::post('/member-stample-claim/store', [MemberClaimStampleController::class, 'store']);
+
+// Member Check
+Route::post('/member/check', [MemberDataPersonalController::class, 'check']);
+
+// Member Award
+Route::get('/member-award', [MemberAwardController::class, 'index']);
+Route::post('/member-award/store', [MemberAwardController::class, 'store']);
+Route::get('/member-award/{id}/show', [MemberAwardController::class, 'show']);
+Route::put('/member-award/{id}/update', [MemberAwardController::class, 'update']);
+Route::delete('/member-award/{id}/delete', [MemberAwardController::class, 'destroy']);
+
+// Member Award Record
+Route::get('/member-award-record', [MemberAwardRecordController::class, 'index']);
+Route::post('/member-award-record/store', [MemberAwardRecordController::class, 'store']);
+Route::get('/member-award-record/{id}/show', [MemberAwardRecordController::class, 'show']);
+Route::put('/member-award-record/{id}/update', [MemberAwardRecordController::class, 'update']);
+Route::delete('/member-award-record/{id}/delete', [MemberAwardRecordController::class, 'destroy']);
+
+// Member
+Route::get('/member', [MemberController::class, 'index']);
+Route::post('/member/store', [MemberController::class, 'store']);
+Route::get('/member/{id}/show', [MemberController::class, 'show']);
+Route::put('/member/{id}/update', [MemberController::class, 'update']);
+Route::delete('/member/{id}/delete', [MemberController::class, 'destroy']);
